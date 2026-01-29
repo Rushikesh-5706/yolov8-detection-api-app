@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+# Pinning torch to 2.5.1 removes the "weights_only" default that is breaking your app
+torch==2.5.1
+torchvision==0.20.1
+ultralytics
+pillow
+opencv-python-headless

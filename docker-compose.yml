@@ -1,0 +1,25 @@
+services:
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      - TORCH_ALLOW_W_ONLY_LOAD=0
+    volumes:
+      - ./models:/app/models
+      - ./output:/app/output
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      retries: 5
+  ui:
+    build: ./ui
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+    volumes:
+      - ./output:/app/output
+    environment:
+      - API_URL=http://api:8000/detect
