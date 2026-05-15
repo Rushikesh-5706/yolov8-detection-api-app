@@ -8,7 +8,7 @@ st.set_page_config(page_title="YOLOv8 Object Detection", layout="wide")
 st.title("YOLOv8 Object Detection System")
 
 # Get API URL from environment or default to localhost
-API_URL = os.getenv("API_URL", "http://api:8000/detect")
+API_URL = "https://YOUR-BACKEND-URL.onrender.com/detect"
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 conf_threshold = st.slider("Confidence Threshold", 0.0, 1.0, 0.25)
