@@ -1,7 +1,10 @@
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="YOLOv8 Object Detection", layout="wide")
+st.set_page_config(
+    page_title="YOLOv8 Object Detection",
+    layout="wide"
+)
 
 st.title("YOLOv8 Object Detection System")
 
@@ -35,6 +38,7 @@ if st.button("Detect Objects") and uploaded_file is not None:
     }
 
     try:
+
         response = requests.post(
             API_URL,
             files=files,
@@ -48,25 +52,39 @@ if st.button("Detect Objects") and uploaded_file is not None:
             col1, col2 = st.columns(2)
 
             with col1:
-                st.subheader("Detected Image")
+
+                st.subheader("Uploaded Image")
+
+                st.image(
+                    uploaded_file,
+                    caption="Original Image",
+                    use_container_width=True
+                )
+
+            with col2:
+
+                st.subheader("Annotated Image")
 
                 image_response = requests.get(IMAGE_URL)
 
                 if image_response.status_code == 200:
+
                     st.image(
                         image_response.content,
-                        caption="Annotated Image",
+                        caption="Detected Objects",
                         use_container_width=True
                     )
+
                 else:
                     st.write("Annotated image not available.")
 
-            with col2:
-                st.subheader("Detection Summary")
-                st.json(result["summary"])
+            st.subheader("Detection Summary")
+            st.json(result["summary"])
 
-                st.subheader("Full JSON Results")
-                st.json(result["detections"])
+            st.subheader("Full JSON Results")
+            st.json(result["detections"])
+
+            st.success("Detection complete!")
 
         else:
             st.error(f"API Error: {response.text}")
