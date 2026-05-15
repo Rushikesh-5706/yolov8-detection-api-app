@@ -7,7 +7,7 @@ from PIL import Image
 from ultralytics import YOLO
 
 app = FastAPI()
-MODEL_PATH = "models/yolov8n.pt"
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "models", "yolov8n.pt")
 OUTPUT_PATH = "last_annotated.jpg"
 model = None
 
