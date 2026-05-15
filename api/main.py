@@ -8,6 +8,8 @@ from ultralytics import YOLO
 
 app = FastAPI()
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "models", "yolov8n.pt")
+print("MODEL PATH:", MODEL_PATH)
+print("MODEL EXISTS:", os.path.exists(MODEL_PATH))
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "last_annotated.jpg")
 model = None
 
