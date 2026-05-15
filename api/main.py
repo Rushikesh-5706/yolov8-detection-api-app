@@ -7,17 +7,16 @@ from PIL import Image
 from ultralytics import YOLO
 
 app = FastAPI()
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "models", "yolov8n.pt")
-print("MODEL PATH:", MODEL_PATH)
-print("MODEL EXISTS:", os.path.exists(MODEL_PATH))
+
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "last_annotated.jpg")
 model = None
 
 def get_model():
     global model
-    if model is None and os.path.exists(MODEL_PATH):
+    if model is None:
         try:
-            model = YOLO(MODEL_PATH)
+            model = YOLO("yolov8n.pt")
+            print("YOLO model loaded successfully")
         except Exception as e:
             print(f"Error loading model: {e}")
     return model
